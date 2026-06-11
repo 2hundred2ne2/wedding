@@ -1,0 +1,129 @@
+{
+  "greeting": {
+    "title": "김민석 \uD83D\uDC8D 장명지\n결혼합니다!",
+    "message": "저희 결혼합니다.\n\n서로에게 알맞은 온도로 따뜻하던 우리.\n부부로서 첫걸음을 내딛는 그 설렘의 순간에\n소중한 분들을 초대합니다.",
+    "host": {
+      "groom": {
+        "name": "세모",
+        "relation": "아들",
+        "parents": [
+          {
+            "relation": "아버지",
+            "name": "장아빠"
+          },
+          {
+            "relation": "어머니",
+            "name": "이엄마"
+          }
+        ]
+      },
+      "bride": {
+        "name": "네모",
+        "relation": "딸",
+        "parents": [
+          {
+            "relation": "아버지",
+            "name": "황아빠"
+          },
+          {
+            "relation": "어머니",
+            "name": "이엄마"
+          }
+        ]
+      }
+    },
+    "eventDetail": "2026년 11월 01일 (일) 11:00\n아만티 호텔 서울",
+    "weddingDate": "2026-11-01T11:00:00"
+  },
+  "hostInfo": [
+    {
+      "host": "신랑측",
+      "accountInfo": [
+        {
+          "name": "김민석",
+          "relation": "신랑",
+          "bank": "카카오뱅크",
+          "account": "1234-56-789012",
+          "kakaopayAccount": "",
+          "tossAccount": ""
+        },
+        {
+          "name": "김아빠",
+          "relation": "아버지",
+          "bank": "농협",
+          "account": "123-45-678901"
+        },
+        {
+          "name": "김옥선",
+          "relation": "어머니",
+          "bank": "농협",
+          "account": "123-45-678901"
+        }
+      ]
+    },
+    {
+      "host": "신부측",
+      "accountInfo": [
+        {
+          "name": "장명지",
+          "relation": "신부",
+          "bank": "신한은행",
+          "account": "110-431-774905",
+          "kakaopayAccount": "",
+          "tossAccount": ""
+        },
+        {
+          "name": "장재수",
+          "relation": "아버지",
+          "bank": "농협",
+          "account": "123-45-678901"
+        },
+        {
+          "name": "최혜숙",
+          "relation": "어머니",
+          "bank": "농협",
+          "account": "123-45-678901"
+        }
+      ]
+    }
+  ],
+  "mapInfo": {
+    "address1": "아만티호텔서울",
+    "address2": "서울 마포구 월드컵북로 31\n아만티호텔서울\n02-332-0158",
+    "naverMap": "https://map.naver.com/p/search/아만티호텔서울",
+    "kakaoMap": "https://map.kakao.com/?q=아만티호텔서울",
+    "lat": 37.557136,
+    "lon": 126.918704
+  },
+  "locationInfo": [
+    {
+      "title": "\uD83D\uDCCD 지하철",
+      "desc": "\uD83D\uDC49\uD83C\uDFFB 2호선·경의선·공항철도 홍대입구역 1번 출구 (도보 10분)"
+    },
+    {
+      "title": "\uD83D\uDCCD 버스",
+      "desc": "\uD83D\uDC49\uD83C\uDFFB 7016, 7711, 7737, 마포06, 마포09"
+    },
+    {
+      "title": "\uD83D\uDCCD 주차안내",
+      "desc": "\uD83D\uDC49\uD83C\uDFFB 내비게이션'아만티호텔 서울' 또는 '월드컵북로 31' 검색\n\uD83D\uDC49\uD83C\uDFFB 주차2시간무료"
+    }
+  ],
+  "emojis": [
+    "❤️",
+    "💛",
+    "💌",
+    "🥹",
+    "🥳",
+    "👰🏻‍",
+    "🤵🏻‍️",
+    "🤍",
+    "✨",
+    "💍",
+    "💒",
+    "💕",
+    "😍",
+    "🔔",
+    "💘"
+  ]
+}
