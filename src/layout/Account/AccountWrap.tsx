@@ -41,7 +41,7 @@ const AccountWrap = ({
           {bank} {account}
         </AccountInfo>
         <CopyButton onClick={handleCopy}>
-          <Copy fill="#dfdfdf" />
+          <Copy fill="#222" />
         </CopyButton>
       </Details>
       <AccountLinks>
@@ -70,6 +70,7 @@ const Wrapper = styled.div`
   }
   display: flex;
   flex-direction: column;
+  margin-left: 40px;
 `;
 
 const Info = styled.div`
@@ -101,7 +102,7 @@ const CopyButton = styled.button`
   gap: 2px;
   outline: none;
   box-shadow: none;
-  background: white;
+  background: transparent;
 `;
 
 const AccountLinks = styled.div`
@@ -114,7 +115,7 @@ const AccountButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #dfdfdf;
+  border: none;
   border-radius: 5px;
   margin: 5px 0;
   padding: 0 0.8em;
@@ -126,7 +127,7 @@ const AccountButton = styled.button`
   text-decoration: none;
   outline: none;
   box-shadow: none;
-  background: white;
+  background: transparent;
 `.withComponent('a');
 
 const KakaopayImg = styled.img`
