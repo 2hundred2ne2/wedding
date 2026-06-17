@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import data from 'data.json';
+import HauntedText from '@/components/HauntedText.tsx';
 import { BrideAndGroom } from '@/types/data.ts';
 
 const Host = () => {
@@ -24,17 +25,17 @@ const HostInfo = ({ person }: { person: BrideAndGroom }) => {
         <>
           {person.parents.map((parent, index) => (
             <React.Fragment key={index}>
-              {index > 0 && ' · '}
-              {parent.name}
+              {index > 0 && <HauntedText text=" · " inline />}
+              <HauntedText text={parent.name} inline />
             </React.Fragment>
           ))}
         </>
       )}
       <RelationText>
-        <div>의</div>
-        <Relation>{person.relation}</Relation>
+        <div><HauntedText text="의" inline /></div>
+        <Relation><HauntedText text={person.relation} inline /></Relation>
       </RelationText>
-      <HighlightedName>{person.name}</HighlightedName>
+      <HighlightedName><HauntedText text={person.name} inline /></HighlightedName>
     </HostDetails>
   );
 };
@@ -42,7 +43,7 @@ const HostInfo = ({ person }: { person: BrideAndGroom }) => {
 const HighlightedName = styled.span`
   font-weight: 600;
   font-size: 1.1rem;
-  color: #4f4f4f;
+  color: #222;
   margin-right: 5px;
 `;
 
