@@ -1,4 +1,5 @@
 // import { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import styled from '@emotion/styled';
 import data from 'data.json';
 // import { increment, onValue, ref, update } from 'firebase/database';
@@ -34,8 +35,13 @@ const FloatingBar = ({ isVisible }: { isVisible: boolean }) => {
     );
   };
 
+  const jsConfettiRef = useRef<JSConfetti | null>(null);
+
   const handleCount = () => {
-    void jsConfetti.addConfetti({ emojis });
+    if (!jsConfettiRef.current) {
+      jsConfettiRef.current = new JSConfetti();
+    }
+    void jsConfettiRef.current.addConfetti({ emojis });
 
     // 버튼 클릭시 likes 수 증가
     // const dbRef = ref(realtimeDb);
@@ -44,7 +50,6 @@ const FloatingBar = ({ isVisible }: { isVisible: boolean }) => {
     // });
   };
 
-  const jsConfetti = new JSConfetti();
   const handleScroll = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
