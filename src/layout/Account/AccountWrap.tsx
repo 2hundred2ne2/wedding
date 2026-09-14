@@ -20,6 +20,25 @@ const AccountWrap = ({
   tossAccount,
 }: IAccountProps) => {
   const handleCopy = () => {
+    if (!navigator.clipboard) {
+      const textarea = document.createElement('textarea');
+      textarea.value = account;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        alert('계좌번호가 복사되었습니다.😉😉');
+      } catch {
+        alert('계좌번호 복사에 실패했습니다.🥲🥲');
+      } finally {
+        document.body.removeChild(textarea);
+      }
+      return;
+    }
+
     navigator.clipboard.writeText(account).then(
       () => {
         alert('계좌번호가 복사되었습니다.😉😉');

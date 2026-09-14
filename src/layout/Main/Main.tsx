@@ -10,15 +10,20 @@ const Main = () => {
   const [showGirl2, setShowGirl2] = useState(false);
 
   useEffect(() => {
+    let t1: ReturnType<typeof setTimeout>;
+    let t2: ReturnType<typeof setTimeout>;
     const cycle = () => {
-      const t1 = setTimeout(() => setShowGirl2(true), 750);
-      const t2 = setTimeout(() => setShowGirl2(false), 2250);
-      return () => { clearTimeout(t1); clearTimeout(t2); };
+      t1 = setTimeout(() => setShowGirl2(true), 750);
+      t2 = setTimeout(() => setShowGirl2(false), 2250);
     };
 
-    const clear = cycle();
+    cycle();
     const interval = setInterval(cycle, SWAY_DURATION);
-    return () => { clear?.(); clearInterval(interval); };
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearInterval(interval);
+    };
   }, []);
 
   return (

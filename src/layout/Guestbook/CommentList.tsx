@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { onValue, ref } from 'firebase/database';
+import CommentItem from './CommentItem.tsx';
 import { realtimeDb } from '../../firebase.ts';
 
 interface Comment {
@@ -9,16 +10,17 @@ interface Comment {
   message: string;
   createdAt: number;
   date: string;
+  passwordHash: string;
 }
-
-const guestbookRef = ref(realtimeDb, 'guestbook');
 
 const CommentList = () => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
+    if (!realtimeDb) return;
+
     // guestbook 데이터가 바뀔 때마다 실시간으로 목록을 갱신합니다.
-    const unsubscribe = onValue(guestbookRef, (snapshot) => {
+    const unsubscribe = onValue(ref(realtimeDb, 'guestbook'), (snapshot) => {
       const value = snapshot.val() as Record<
         string,
         Omit<Comment, 'id'>
@@ -39,6 +41,10 @@ const CommentList = () => {
     return () => unsubscribe();
   }, []);
 
+  if (!realtimeDb) {
+    return <EmptyText>방명록 기능이 아직 준비되지 않았어요. 🥲</EmptyText>;
+  }
+
   if (comments.length === 0) {
     return <EmptyText>아직 남겨진 메시지가 없어요. 첫 메시지를 남겨주세요. 💌</EmptyText>;
   }
@@ -46,13 +52,14 @@ const CommentList = () => {
   return (
     <ListWrapper>
       {comments.map((comment) => (
-        <CommentItem key={comment.id}>
-          <CommentHeader>
-            <Sender>{comment.sender}</Sender>
-            <DateText>{comment.date}</DateText>
-          </CommentHeader>
-          <Message>{comment.message}</Message>
-        </CommentItem>
+        <CommentItem
+          key={comment.id}
+          id={comment.id}
+          sender={comment.sender}
+          message={comment.message}
+          date={comment.date}
+          passwordHash={comment.passwordHash}
+        />
       ))}
     </ListWrapper>
   );
@@ -65,40 +72,6 @@ const ListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-`;
-
-const CommentItem = styled.li`
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 10px 12px;
-  background-color: #fafafa;
-`;
-
-const CommentHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 4px;
-  gap: 8px;
-`;
-
-const Sender = styled.span`
-  font-weight: 500;
-  color: #e88ca6;
-`;
-
-const DateText = styled.span`
-  font-size: 0.75rem;
-  font-weight: 200;
-  color: #aaa;
-`;
-
-const Message = styled.p`
-  margin: 0;
-  font-weight: 300;
-  line-height: 1.5;
-  white-space: pre-line;
-  word-break: break-word;
 `;
 
 const EmptyText = styled.p`
