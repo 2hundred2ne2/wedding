@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import ErrorBoundary from '@/components/ErrorBoundary.tsx';
 import HauntedText from '@/components/HauntedText.tsx';
 import { Heading1 } from '@/components/Text.tsx';
 import Wrapper from '@/components/Wrapper.tsx';
@@ -74,7 +75,9 @@ function App() {
       <GuestbookSection>
         <Wrapper>
           <Heading1>신랑 신부에게</Heading1>
-          <Guestbook />
+          <ErrorBoundary fallback={<GuestbookFallback>방명록을 잠시 불러올 수 없어요.</GuestbookFallback>}>
+            <Guestbook />
+          </ErrorBoundary>
         </Wrapper>
       </GuestbookSection>
       <FloatingBar isVisible={isVisible} />
@@ -127,4 +130,9 @@ const InvitationHeading = styled(HauntedText)`
 const GuestbookSection = styled.div`
   background-color: #7C8B6A;
   color: #fff;
+`;
+
+const GuestbookFallback = styled.p`
+  text-align: center;
+  padding: 20px 0;
 `;

@@ -2,16 +2,16 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import { push, ref, serverTimestamp } from 'firebase/database';
 import PopEffect from './PopEffect.tsx';
+import { hashPassword } from './hashPassword.ts';
 import { realtimeDb } from '../../firebase.ts';
-
-const guestbookRef = ref(realtimeDb, 'guestbook');
 
 const CommentForm = () => {
   const [name, setName] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const [pin, setPin] = useState<string>('');
   const [showPop, setShowPop] = useState<boolean>(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!name || !message) {
@@ -19,9 +19,22 @@ const CommentForm = () => {
       return;
     }
 
+    if (!/^\d{4}$/.test(pin)) {
+      alert('수정/삭제에 사용할 비밀번호 4자리 숫자를 입력해주세요. 🥹');
+      return;
+    }
+
+    if (!realtimeDb) {
+      alert('방명록 기능이 아직 준비되지 않았어요. 🥲');
+      return;
+    }
+
+    const passwordHash = await hashPassword(pin);
+
     const guestbookMessage = {
       sender: name,
       message: message,
+      passwordHash,
       createdAt: serverTimestamp(),
       date: new Date().toLocaleString(),
     };
@@ -29,11 +42,12 @@ const CommentForm = () => {
     // 메시지에 "축하"가 들어있으면 등록 성공 후 폭죽 애니메이션을 띄웁니다.
     const hasCelebration = message.includes('축하');
 
-    void push(guestbookRef, guestbookMessage)
+    void push(ref(realtimeDb, 'guestbook'), guestbookMessage)
       .then(() => {
         alert('메시지를 보냈습니다. 💌');
         setName('');
         setMessage('');
+        setPin('');
         if (hasCelebration) {
           setShowPop(true);
         }
@@ -57,6 +71,15 @@ const CommentForm = () => {
         value={message}
         maxLength={300}
         onChange={(e) => setMessage(e.target.value)}
+      />
+      <PinInput
+        placeholder="비밀번호 4자리 (수정·삭제 시 필요해요)"
+        type="password"
+        inputMode="numeric"
+        pattern="\d{4}"
+        maxLength={4}
+        value={pin}
+        onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))}
       />
       <SubmitButton type="submit">등록</SubmitButton>
       {showPop && <PopEffect onDone={() => setShowPop(false)} />}
@@ -96,6 +119,19 @@ const MessageInput = styled.textarea`
   outline: none;
   border: 1px solid #ccc;
   resize: none;
+  font-family: inherit;
+  font-weight: 300;
+`;
+
+const PinInput = styled.input`
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 0.85rem;
+  line-height: 1;
+  outline: none;
+  border: 1px solid #ccc;
   font-family: inherit;
   font-weight: 300;
 `;

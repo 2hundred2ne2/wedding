@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import data from 'data.json';
@@ -10,15 +10,41 @@ const isSameDay = (a: Date, b: Date) =>
   a.getMonth() === b.getMonth() &&
   a.getDate() === b.getDate();
 
-const Calendar = () => {
-  const { greeting } = data;
-  const eventDate = new Date(greeting.weddingDate);
+const CountdownTimer = ({ eventDate }: { eventDate: Date }) => {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const diff = eventDate.getTime() - now.getTime();
+  const dayDiff = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const isPast = dayDiff < 0;
+
+  if (dayDiff === 0) {
+    return <Countdown>❤️ 오늘이 바로 그날 ❤️</Countdown>;
+  }
+  if (!isPast) {
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    return (
+      <Countdown>
+        우리 결혼식까지 <Point>{dayDiff}일</Point> {hours}시간 {mins}분 {secs}초 남았어요.
+      </Countdown>
+    );
+  }
+  return (
+    <Countdown>
+      저희 부부, 어느덧 <Point>+{Math.abs(dayDiff)}일차</Point> 입니다.
+    </Countdown>
+  );
+};
+
+const Calendar = () => {
+  const { greeting } = data;
+  const eventDate = useMemo(() => new Date(greeting.weddingDate), [greeting.weddingDate]);
 
   const year = eventDate.getFullYear();
   const month = eventDate.getMonth();
@@ -51,31 +77,6 @@ const Calendar = () => {
     );
   });
 
-  const renderCountdown = () => {
-    const diff = eventDate.getTime() - now.getTime();
-    const dayDiff = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const isPast = dayDiff < 0;
-
-    if (dayDiff === 0) {
-      return <Point>❤️ 오늘이 바로 그날 ❤️</Point>;
-    } else if (!isPast) {
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-      return (
-        <>
-          우리 결혼식까지 <Point>{dayDiff}일</Point> {hours}시간 {mins}분 {secs}초 남았어요.
-        </>
-      );
-    } else {
-      return (
-        <>
-          저희 부부, 어느덧 <Point>+{Math.abs(dayDiff)}일차</Point> 입니다.
-        </>
-      );
-    }
-  };
-
   return (
     <CalendarWrapper>
       <MonthTitle>
@@ -89,7 +90,7 @@ const Calendar = () => {
         ))}
         {cells}
       </Grid>
-      <Countdown>{renderCountdown()}</Countdown>
+      <CountdownTimer eventDate={eventDate} />
     </CalendarWrapper>
   );
 };
