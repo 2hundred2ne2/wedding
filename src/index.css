@@ -39,3 +39,19 @@ body {
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'NanumDoongeunInyeon';
+  src: url('./assets/font/guestbook/NanumDoongeunInyeon.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NanumHyeogi';
+  src: url('./assets/font/guestbook/NanumHyeogi.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

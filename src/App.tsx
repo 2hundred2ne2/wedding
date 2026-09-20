@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import messageImg from '@/assets/images/message.jpg';
+import partyImg from '@/assets/images/party.jpg';
 import ErrorBoundary from '@/components/ErrorBoundary.tsx';
 import HauntedText from '@/components/HauntedText.tsx';
 import { Heading1 } from '@/components/Text.tsx';
@@ -14,6 +15,7 @@ import Guestbook from '@/layout/Guestbook/Guestbook.tsx';
 import Invitation from '@/layout/Invitation/Invitation.tsx';
 import Location from '@/layout/Location/Location.tsx';
 import Main from '@/layout/Main/Main.tsx';
+import Reception from '@/layout/Reception/Reception.tsx';
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -56,14 +58,22 @@ function App() {
         <Heading1>마음 전하실 곳</Heading1>
         <Account />
       </Wrapper>
-      <Wrapper>
-        <Heading1>함께하는 날</Heading1>
-        <Calendar />
-      </Wrapper>
+      <CalendarSection>
+        <Wrapper>
+          <Heading1>함께하는 날</Heading1>
+          <Calendar />
+        </Wrapper>
+      </CalendarSection>
       <Wrapper>
         <Heading1>오시는 길</Heading1>
         <Location />
       </Wrapper>
+      <ReceptionSection>
+        <Wrapper>
+          <ReceptionHeading text="태백 피로연 안내" />
+          <Reception />
+        </Wrapper>
+      </ReceptionSection>
       <GuestbookSection>
         <Wrapper>
           <Heading1>신랑 신부에게</Heading1>
@@ -115,6 +125,47 @@ const InvitationHeading = styled(HauntedText)`
   font-size: 1.5rem;
   margin: 10px;
   white-space: pre-line;
+`;
+
+const ReceptionHeading = styled(HauntedText)`
+  font-family: DalkomClimate, HSSanTokki20-Regular, serif;
+  font-size: 1.5rem;
+  margin: 10px;
+  white-space: pre-line;
+`;
+
+const CalendarSection = styled.div`
+  background-color: #fff;
+`;
+
+const ReceptionSection = styled.div`
+  position: relative;
+  min-height: max(100dvh, 800px);
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  background-color: #0b0b0d;
+  background-image: url(${partyImg});
+  background-size: cover;
+  background-position: center bottom;
+  color: #fff;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.25);
+    z-index: 0;
+  }
+
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  && * {
+    color: #fff;
+  }
 `;
 
 const GuestbookSection = styled.div`

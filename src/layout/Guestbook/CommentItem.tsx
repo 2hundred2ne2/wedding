@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { ref, remove, update } from 'firebase/database';
+import { getCommentFont } from './commentFont.ts';
 import { hashPassword } from './hashPassword.ts';
 import { MASTER_PASSWORD_HASH } from './masterPassword.ts';
 import { realtimeDb } from '../../firebase.ts';
@@ -80,21 +81,24 @@ const CommentItem = ({ id, sender, message, date, passwordHash }: IProps) => {
     }
   };
 
+  const fontStyle = { fontFamily: getCommentFont(id) };
+
   return (
     <Wrapper>
       <Header>
-        <Sender>{sender}</Sender>
+        <Sender style={fontStyle}>{sender}</Sender>
         <DateText>{date}</DateText>
       </Header>
 
       {mode === 'edit' ? (
         <EditTextarea
+          style={fontStyle}
           value={editText}
           maxLength={300}
           onChange={(e) => setEditText(e.target.value)}
         />
       ) : (
-        <Message>{message}</Message>
+        <Message style={fontStyle}>{message}</Message>
       )}
 
       {mode === 'view' && (
