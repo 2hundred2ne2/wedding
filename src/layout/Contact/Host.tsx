@@ -45,6 +45,7 @@ const HighlightedName = styled.span`
   font-size: 1.1rem;
   color: #222;
   margin-right: 5px;
+  -webkit-text-stroke: 0.8px currentColor;
 `;
 
 const HostContainer = styled.div`
@@ -61,6 +62,8 @@ const HostDetails = styled.div`
   text-align: center;
   align-items: center;
   font-weight: 700;
+  /* 서초바탕에는 굵은 글씨체가 없어 font-weight가 먹지 않으므로 글자 테두리로 굵게 보이게 합니다. */
+  -webkit-text-stroke: 0.6px currentColor;
 `;
 
 const RelationText = styled.div`

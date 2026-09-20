@@ -20,11 +20,41 @@ import Reception from '@/layout/Reception/Reception.tsx';
 function App() {
   const [isVisible, setIsVisible] = useState(false);
   const galleryRef = useRef(null);
+  const invitationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     window.addEventListener('scroll', checkScrollPosition);
     return () => {
       window.removeEventListener('scroll', checkScrollPosition);
+    };
+  }, []);
+
+  // 모시는 글 섹션이 화면 아래에서 올라올수록 배경이 흰 느낌에서 어두워지도록,
+  // 스크롤 진행도(0~1)를 CSS 변수로 넘깁니다. (리렌더 없이 style만 바꿉니다.)
+  useEffect(() => {
+    const el = invitationRef.current;
+    if (!el) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const { top } = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = Math.min(1, Math.max(0, (vh - top) / (vh * 0.6)));
+      // 제곱으로 완급을 줘서 초반에는 흰 느낌을 오래 유지하고, 뒤쪽에서 빠르게 어두워집니다.
+      el.style.setProperty('--invitation-dark', (progress * progress).toFixed(3));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (frame) cancelAnimationFrame(frame);
     };
   }, []);
 
@@ -44,7 +74,7 @@ function App() {
   return (
     <Container>
       <Main />
-      <InvitationSection>
+      <InvitationSection ref={invitationRef}>
         <Wrapper>
           <InvitationHeading text="모시는 글" />
           <Invitation />
@@ -102,12 +132,23 @@ const InvitationSection = styled.div`
   background-position: center;
   color: #fff;
 
-  &::before {
+  /* --invitation-dark: 스크롤 진행도(0~1). 0이면 흰 막, 1이면 어두운 막이 보입니다. */
+  &::before,
+  &::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: rgba(255, 255, 255, 0.6);
     z-index: 0;
+  }
+
+  &::before {
+    background-color: rgba(0, 0, 0, 0.45);
+    opacity: var(--invitation-dark, 1);
+  }
+
+  &::after {
+    background-color: rgba(255, 255, 255, 0.75);
+    opacity: calc(1 - var(--invitation-dark, 1));
   }
 
   & > * {
@@ -117,21 +158,24 @@ const InvitationSection = styled.div`
 
   && * {
     color: #fff;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
   }
 `;
 
 const InvitationHeading = styled(HauntedText)`
-  font-family: DalkomClimate, HSSanTokki20-Regular, serif;
+  font-family: 'SeochoBatang-Regular', serif;
   font-size: 1.5rem;
   margin: 10px;
   white-space: pre-line;
+  -webkit-text-stroke: 0.7px currentColor;
 `;
 
 const ReceptionHeading = styled(HauntedText)`
-  font-family: DalkomClimate, HSSanTokki20-Regular, serif;
+  font-family: 'SeochoBatang-Regular', serif;
   font-size: 1.5rem;
   margin: 10px;
   white-space: pre-line;
+  -webkit-text-stroke: 0.7px currentColor;
 `;
 
 const CalendarSection = styled.div`

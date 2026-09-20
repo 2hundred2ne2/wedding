@@ -26,8 +26,9 @@ const Main = () => {
         <Name>myeongji</Name>
       </NameOverlay>
       <Details>
-        <span>amanti hotel, seoul</span>
-        <span>november 1, 2026</span>
+        <span>November 1, 2026</span>
+        <span>11 o'clock</span>
+        <span>Amanti hotel, Seoul</span>
       </Details>
       <Dots>
         {images.map((image, i) => (
@@ -73,7 +74,7 @@ const Scrim = styled.div`
 
 const NameOverlay = styled.div`
   position: absolute;
-  top: 45%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;

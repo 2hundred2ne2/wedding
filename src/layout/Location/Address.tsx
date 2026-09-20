@@ -11,7 +11,7 @@ const Address = () => {
         const { title, desc } = item;
         return (
           <Way key={title}>
-            <PointTitle>{title}</PointTitle>
+            <BoldTitle>{title}</BoldTitle>
             <Caption>{desc}</Caption>
           </Way>
         );
@@ -28,6 +28,12 @@ const WayWrapper = styled.div`
   align-items: flex-start;
   margin: 20px 0px;
   gap: 20px;
+`;
+
+// 서초바탕에는 굵은 글씨체가 없고 font-synthesis도 꺼져 있어 font-weight가 먹지 않으므로,
+// 글자 테두리를 입혀서 굵게 보이게 합니다. 굵기는 stroke 값으로 조절합니다.
+const BoldTitle = styled(PointTitle)`
+  -webkit-text-stroke: 0.6px currentColor;
 `;
 
 const Way = styled.div`
