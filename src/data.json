@@ -35,58 +35,6 @@
     "eventDetail": "2026년 11월 01일 (일) 11:00\n아만티 호텔 서울",
     "weddingDate": "2026-11-01T11:00:00"
   },
-  "hostInfo": [
-    {
-      "host": "신랑측",
-      "accountInfo": [
-        {
-          "name": "김민석",
-          "relation": "신랑",
-          "bank": "카카오뱅크",
-          "account": "1234-56-789012",
-          "kakaopayAccount": "",
-          "tossAccount": ""
-        },
-        {
-          "name": "김용학",
-          "relation": "아버지",
-          "bank": "농협",
-          "account": "123-45-678901"
-        },
-        {
-          "name": "김옥선",
-          "relation": "어머니",
-          "bank": "우리",
-          "account": "000-00-000000"
-        }
-      ]
-    },
-    {
-      "host": "신부측",
-      "accountInfo": [
-        {
-          "name": "장명지",
-          "relation": "신부",
-          "bank": "신한은행",
-          "account": "000-00-000000",
-          "kakaopayAccount": "",
-          "tossAccount": ""
-        },
-        {
-          "name": "장재수",
-          "relation": "아버지",
-          "bank": "농협",
-          "account": "000-00-000000"
-        },
-        {
-          "name": "최혜숙",
-          "relation": "어머니",
-          "bank": "농협",
-          "account": "000-00-000000"
-        }
-      ]
-    }
-  ],
   "mapInfo": {
     "address1": "아만티호텔서울",
     "address2": "서울 마포구 월드컵북로 31\n아만티호텔서울\n02-332-0158",

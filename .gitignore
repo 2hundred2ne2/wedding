@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+# Firebase에 넣을 실제 계좌 정보 (git에 올리지 않음)
+accounts.import.json

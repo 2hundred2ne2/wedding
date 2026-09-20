@@ -1,13 +1,22 @@
 import styled from '@emotion/styled';
-import data from 'data.json';
 import AccountWrap from './AccountWrap.tsx';
+import { useAccounts } from './useAccounts.ts';
 import Accordion from '@/components/Accordion.tsx';
 
 const Account = () => {
-  const { hostInfo } = data;
+  const { hosts, status } = useAccounts();
+
+  if (status === 'loading') {
+    return <Message>계좌 정보를 불러오는 중이에요.</Message>;
+  }
+
+  if (status === 'error') {
+    return <Message>계좌 정보를 잠시 불러올 수 없어요. 잠시 후 다시 시도해주세요.</Message>;
+  }
+
   return (
     <HostInfoWrapper>
-      {hostInfo.map((host) => {
+      {hosts.map((host) => {
         return (
           <Accordion title={host.host} key={host.host}>
             {host.accountInfo.map((account) => {
@@ -31,6 +40,12 @@ const Account = () => {
 };
 
 export default Account;
+
+const Message = styled.p`
+  text-align: center;
+  font-weight: 200;
+  padding: 20px 0;
+`;
 
 const HostInfoWrapper = styled.div`
   display: flex;

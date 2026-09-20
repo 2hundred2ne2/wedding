@@ -10,3 +10,17 @@ export interface ILocationInfo {
   title: string;
   desc: string;
 }
+
+export interface IAccount {
+  name: string;
+  relation: string;
+  bank: string;
+  account: string;
+  kakaopayAccount?: string;
+  tossAccount?: string;
+}
+
+export interface IHostInfo {
+  host: string;
+  accountInfo: IAccount[];
+}
