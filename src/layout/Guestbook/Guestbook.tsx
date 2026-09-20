@@ -9,7 +9,7 @@ const Guestbook = () => {
       <Heading2>
         메시지를 남겨주세요.
         <br />
-        결혼식 하루 뒤, 신랑 신부에게 전달됩니다.
+        평생 신랑 신부가 간직 할 수 있어요.
       </Heading2>
       <CommentForm />
       <CommentList />

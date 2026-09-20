@@ -155,7 +155,7 @@ const Header = styled.div`
 
 const Sender = styled.span`
   font-weight: 500;
-  color: #e88ca6;
+  color: #1A243D;
 `;
 
 const DateText = styled.span`

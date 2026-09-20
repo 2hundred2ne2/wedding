@@ -112,9 +112,9 @@ const CalendarWrapper = styled.div`
 `;
 
 const MonthTitle = styled.p`
-  font-family: HSSanTokki20-Regular, serif;
+  font-family: 'SeochoBatang-Regular', serif;
   font-size: 1.2rem;
-  color: #e88ca6;
+  color: #1A243D;
   margin: 0;
 `;
 
@@ -134,7 +134,7 @@ const WeekDay = styled.div<{ isSunday?: boolean; isSaturday?: boolean }>`
   font-size: 0.85rem;
   text-align: center;
   padding: 4px 0;
-  color: ${(props) => (props.isSunday ? '#e88ca6' : props.isSaturday ? '#8ca6e8' : '#333')};
+  color: ${(props) => (props.isSunday ? '#1A243D' : props.isSaturday ? '#8ca6e8' : '#333')};
 `;
 
 const Cell = styled.div<{ isSunday?: boolean; isSaturday?: boolean }>`
@@ -143,7 +143,7 @@ const Cell = styled.div<{ isSunday?: boolean; isSaturday?: boolean }>`
   justify-content: center;
   height: 36px;
   font-size: 0.9rem;
-  color: ${(props) => (props.isSunday ? '#e88ca6' : props.isSaturday ? '#8ca6e8' : '#333')};
+  color: ${(props) => (props.isSunday ? '#1A243D' : props.isSaturday ? '#8ca6e8' : '#333')};
 `;
 
 const HeartAnimate = styled.span`
@@ -162,6 +162,6 @@ const Countdown = styled.p`
 `;
 
 const Point = styled.span`
-  color: #ef7baf;
+  color: #1A243D;
   font-weight: 600;
 `;

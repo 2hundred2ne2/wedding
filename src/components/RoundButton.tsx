@@ -9,7 +9,7 @@ const RoundButton = styled.button`
   cursor: pointer;
   color: #44484d;
   text-decoration: none;
-  background-color: #e6ece1;
+  background-color: #44484d;
 `.withComponent('a');
 
 export default RoundButton;

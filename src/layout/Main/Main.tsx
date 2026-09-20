@@ -1,138 +1,141 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
-import data from 'data.json';
+import images from './Images.ts';
 
-const SWAY_DURATION = 3000;
+const SLIDE_DURATION = 3000;
 
 const Main = () => {
-  const { greeting } = data;
-  const [showGirl2, setShowGirl2] = useState(false);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let t1: ReturnType<typeof setTimeout>;
-    let t2: ReturnType<typeof setTimeout>;
-    const cycle = () => {
-      t1 = setTimeout(() => setShowGirl2(true), 750);
-      t2 = setTimeout(() => setShowGirl2(false), 2250);
-    };
-
-    cycle();
-    const interval = setInterval(cycle, SWAY_DURATION);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearInterval(interval);
-    };
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % images.length);
+    }, SLIDE_DURATION);
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <MainWrapper>
-      <MainTitle>{greeting.title}</MainTitle>
-      <SubTitle>{greeting.eventDetail}</SubTitle>
-      <CharacterRow>
-        <BoyImg src="/boy.png" alt="" />
-        <GirlContainer>
-          <GirlImg src="/girl.png" alt="" visible={!showGirl2} />
-          <GirlImg src="/girl2.png" alt="" visible={showGirl2} />
-        </GirlContainer>
-      </CharacterRow>
-      <BottomDecor src="/mainbackground-bottom.png" alt="" />
+      {images.map((image, i) => (
+        <SlideImg key={image.alt} src={image.source} alt="" visible={i === index} />
+      ))}
+      <Scrim />
+      <NameOverlay>
+        <Name>minseok</Name>
+        <And>and</And>
+        <Name>myeongji</Name>
+      </NameOverlay>
+      <Details>
+        <span>amanti hotel, seoul</span>
+        <span>november 1, 2026</span>
+      </Details>
+      <Dots>
+        {images.map((image, i) => (
+          <Dot key={image.alt} active={i === index} />
+        ))}
+      </Dots>
     </MainWrapper>
   );
 };
 
 export default Main;
 
-const sway = keyframes`
-  0%   { transform: translateX(-20px); }
-  50%  { transform: translateX(20px); }
-  100% { transform: translateX(-20px); }
-`;
-
 const MainWrapper = styled.div`
   position: relative;
   width: 100%;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 0 40px;
-  background-image: url('/mainbackground.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  box-sizing: border-box;
+  height: 100dvh;
   overflow: hidden;
 `;
 
-const CharacterRow = styled.div`
+const SlideImg = styled.img<{ visible: boolean }>`
   position: absolute;
-  bottom: clamp(60px, 10vw, 120px);
-  left: 0;
-  right: 0;
-  height: clamp(260px, 70vw, 400px);
-`;
-
-const BoyImg = styled.img`
-  position: absolute;
-  bottom: 25%;
-  left: 2%;
-  width: 90%;
-  max-width: 420px;
-  height: auto;
-  animation: ${sway} ${SWAY_DURATION}ms ease-in-out infinite;
-  z-index: 2;
-`;
-
-const GirlContainer = styled.div`
-  position: absolute;
-  bottom: 25%;
-  right: 2%;
-  width: 48%;
-  max-width: 420px;
-  height: 100%;
-  z-index: 1;
-`;
-
-const GirlImg = styled.img<{ visible: boolean }>`
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   transition: opacity 0.8s ease-in-out;
 `;
 
-const BottomDecor = styled.img`
+// 어떤 사진이 떠 있어도 이름 글씨가 항상 잘 보이도록 은은한 그라데이션을 얹습니다.
+const Scrim = styled.div`
   position: absolute;
-  bottom: 0;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(0, 0, 0, 0.02) 35%,
+    rgba(0, 0, 0, 0.05) 60%,
+    rgba(0, 0, 0, 0.32) 100%
+  );
+  z-index: 1;
+`;
+
+const NameOverlay = styled.div`
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2px, 1.2vw, 8px);
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+`;
+
+const Name = styled.p`
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 7.5vw, 2.6rem);
+  letter-spacing: 0.06em;
+  margin: 0;
+  line-height: 1.1;
+`;
+
+const And = styled.p`
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 500;
+  font-size: clamp(0.8rem, 2.6vw, 1.05rem);
+  letter-spacing: 0.1em;
+  margin: 0;
+  opacity: 0.85;
+`;
+
+const Details = styled.div`
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(0.7rem, 2.2vw, 0.85rem);
+  letter-spacing: 0.15em;
+  opacity: 0.85;
+`;
+
+const Dots = styled.div`
+  position: absolute;
+  bottom: 20px;
   left: 0;
-  width: clamp(280px, 100vw, 560px);
-  height: auto;
-  z-index: 10;
-  pointer-events: none;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  z-index: 3;
 `;
 
-const MainTitle = styled.p`
-  font-family: 'Nanum Pen Script', cursive;
-  font-size: clamp(2.5rem, 9vw, 3.8rem);
-  color: #7C8B6A;
-  line-height: 120%;
-  white-space: pre-line;
-  margin: 0;
-  margin-top: clamp(-350px, -80vw, -200px);
-  margin-left: clamp(20px, 25vw, 120px);
-  margin-bottom: clamp(10px, 3vw, 20px);
-`;
-
-const SubTitle = styled.p`
-  font-size: clamp(1.1rem, 4vw, 1.5rem);
-  color: #7C8B6A;
-  line-height: 140%;
-  white-space: pre-line;
-  margin: 0;
-  margin-left: clamp(20px, 25vw, 120px);
+const Dot = styled.span<{ active: boolean }>`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: ${({ active }) => (active ? '#fff' : 'rgba(255, 255, 255, 0.5)')};
+  transition: background-color 0.3s ease-in-out;
 `;

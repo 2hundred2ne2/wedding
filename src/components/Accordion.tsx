@@ -16,18 +16,14 @@ const Accordion = ({ title, children }: IAccordionProps) => {
   return (
     <AccordionWrapper>
       <AccordionHeader isActive={isOpen} onClick={toggleAccordion}>
-        <BtnImg src="/accountbtn.png" alt="" />
-        <BtnContent>
-          <p>{title}</p>
-          <span style={{ transform: isOpen ? 'rotate(180deg)' : undefined, transition: 'all 0.3s ease', display: 'flex' }}>
-            <ExpandMore fill="#222" />
-          </span>
-        </BtnContent>
+        <p>{title}</p>
+        <span style={{ transform: isOpen ? 'rotate(180deg)' : undefined, transition: 'all 0.3s ease', display: 'flex' }}>
+          <ExpandMore fill="#44484d" />
+        </span>
       </AccordionHeader>
 
       {isOpen && (
         <AccordionContent>
-          <ContentBgImg src="/accountbackground.png" alt="" />
           <ContentInner>{children}</ContentInner>
         </AccordionContent>
       )}
@@ -38,61 +34,43 @@ const Accordion = ({ title, children }: IAccordionProps) => {
 export default Accordion;
 
 const AccordionWrapper = styled.div`
-  font-family: HSSanTokki20-Regular, serif;
+  font-family: 'SeochoBatang-Regular', serif;
   font-size: 1rem;
-  margin-bottom: 20px;
-  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #eee;
+  border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
 `;
 
 const AccordionHeader = styled.div<{ isActive: boolean }>`
   position: relative;
-  cursor: pointer;
-`;
-
-const BtnImg = styled.img`
-  width: 100%;
-  display: block;
-`;
-
-const BtnContent = styled.div`
-  position: absolute;
-  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 15px;
+  padding: 16px;
+  cursor: pointer;
+  background-color: rgba(207, 198, 175, 1);
+
   & > p {
     color: #44484d;
     margin: 0;
     flex: 1;
     text-align: center;
-    font-family: HSSanTokki20-Regular, serif;
+    font-family: 'SeochoBatang-Regular', serif;
   }
   & > span {
     position: absolute;
-    right: 15px;
+    right: 16px;
   }
 `;
 
 const AccordionContent = styled.div`
-  position: relative;
   font-size: 14px;
-`;
-
-const ContentBgImg = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1.2);
-  width: 100%;
-  height: 85%;
-  object-fit: contain;
+  background-color: #fff;
 `;
 
 const ContentInner = styled.div`
-  position: relative;
-  padding: 10px 20px 15px 10px;
+  padding: 4px 20px 15px;
   text-align: justify;
 `;

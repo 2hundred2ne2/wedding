@@ -44,7 +44,7 @@ const Invitation = () => {
         target="_blank"
         href={getGoogleCalendarLink()}
         rel="noreferrer">
-        <HauntedText text="구글 캘린더 추가하기" inline />
+        구글 캘린더 추가하기
       </RoundButton>
     </InvitationWrapper>
   );

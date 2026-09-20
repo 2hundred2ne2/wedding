@@ -1,5 +1,5 @@
 body {
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+  font-family: 'SeochoBatang-Regular', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -16,19 +16,26 @@ body {
   min-width: 280px;
   display: flex;
   justify-content: center;
-  background-color: #D9D0C1;
+  background-color: #F8F4EC;
+}
+
+@font-face {
+  font-family: 'DalkomClimate';
+  src: url('./assets/font/DalkomClimate.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SeochoBatang-Regular';
+  src: url('./assets/font/SeochoBatang-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
   font-family: 'HSSanTokki20-Regular';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2') format('woff2');
   font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'SUITE-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-  font-weight: 400;
   font-style: normal;
 }

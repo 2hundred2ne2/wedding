@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 import Copy from '@/assets/icons/copy.svg?react';
-import kakaopay from '@/assets/icons/kakaopay.png?url';
-import toss from '@/assets/icons/toss.png?url';
 
 interface IAccountProps {
   name: string;
@@ -63,47 +61,50 @@ const AccountWrap = ({
           <Copy fill="#222" />
         </CopyButton>
       </Details>
-      <AccountLinks>
-        {kakaopayAccount && (
-          <AccountButton href={kakaopayAccount} target="_blank" rel="noreferrer">
-            <KakaopayImg src={kakaopay} alt="kakaopay" />
-          </AccountButton>
-        )}
-        {tossAccount && (
-          <AccountButton href={tossAccount} target="_blank" rel="noreferrer">
-            <TossImg src={toss} alt="toss" />
-          </AccountButton>
-        )}
-      </AccountLinks>
+      {(kakaopayAccount || tossAccount) && (
+        <AccountLinks>
+          {kakaopayAccount && (
+            <AccountButton href={kakaopayAccount} target="_blank" rel="noreferrer">
+              카카오페이 송금
+            </AccountButton>
+          )}
+          {tossAccount && (
+            <AccountButton href={tossAccount} target="_blank" rel="noreferrer">
+              토스 송금
+            </AccountButton>
+          )}
+        </AccountLinks>
+      )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  font-family: 'SUITE-Regular';
-  padding: 10px 0;
-  border-bottom: 1px solid #dfdfdf;
+  font-family: 'SeochoBatang-Regular', serif;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
   &:last-of-type {
-    margin-bottom: 0;
+    padding-bottom: 0;
     border-bottom: none;
   }
   display: flex;
   flex-direction: column;
-  margin-left: 40px;
+  gap: 6px;
 `;
 
 const Info = styled.div`
-  height: inherit;
   display: flex;
-  align-items: center;
-  gap: 5px;
-  margin: 5px 0;
+  align-items: baseline;
+  gap: 6px;
 `;
 const Relation = styled.span`
-  color: #44484d;
+  font-size: 0.8rem;
+  color: #999;
 `;
 const Name = styled.span`
-  font-size: 1rem
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
 `;
 
 const Details = styled.div`
@@ -112,49 +113,46 @@ const Details = styled.div`
   justify-content: space-between;
 `;
 
-const AccountInfo = styled.div``;
+const AccountInfo = styled.div`
+  font-size: 0.9rem;
+  color: #555;
+`;
+
 const CopyButton = styled.button`
-  border: none;
-  border-radius: 5px;
-  padding: 0.1em 0.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dfdfdf;
+  border-radius: 6px;
+  padding: 4px 6px;
   cursor: pointer;
-  gap: 2px;
   outline: none;
   box-shadow: none;
-  background: transparent;
+  background: white;
 `;
 
 const AccountLinks = styled.div`
   display: flex;
   width: 100%;
-  gap: 2px;
+  gap: 6px;
+  margin-top: 2px;
 `;
 
 const AccountButton = styled.button`
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: 5px;
-  margin: 5px 0;
-  padding: 0 0.8em;
-  width: inherit;
-  font-size: 0.7rem;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  padding: 6px 0;
+  font-size: 0.8rem;
   cursor: pointer;
-  gap: 2px;
-  color: #1a1a1a;
+  color: #44484d;
   text-decoration: none;
   outline: none;
   box-shadow: none;
-  background: transparent;
+  background: white;
 `.withComponent('a');
-
-const KakaopayImg = styled.img`
-  width: 50px;
-`;
-
-const TossImg = styled.img`
-  width: 70px;
-`;
 
 export default AccountWrap;
