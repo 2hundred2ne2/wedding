@@ -7,5 +7,5 @@ export const getCommentFont = (id: string) => {
   for (let i = 0; i < id.length; i += 1) {
     hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
   }
-  return `'${COMMENT_FONTS[hash % COMMENT_FONTS.length]}', 'SeochoBatang-Regular', serif`;
+  return `'${COMMENT_FONTS[hash % COMMENT_FONTS.length]}', 'KotraGothic', sans-serif`;
 };

@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import data from 'data.json';
 import HauntedText from '@/components/HauntedText.tsx';
+import ScrollFillText from '@/components/ScrollFillText.tsx';
 import { ILocationInfo } from '@/types/data.ts';
 
 const Reception = () => {
   const { receptionMessage, receptionInfo } = data;
   return (
     <ReceptionWrapper>
-      <HauntedText text={receptionMessage} />
+      <ScrollFillText text={receptionMessage} />
       {receptionInfo?.map((item: ILocationInfo) => {
         const { title, desc } = item;
         return (
@@ -39,6 +40,6 @@ const Info = styled.div`
 `;
 
 const InfoTitle = styled(HauntedText)`
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
   line-height: 1.6;
 `;

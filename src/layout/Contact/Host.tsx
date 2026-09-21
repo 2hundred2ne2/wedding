@@ -41,29 +41,24 @@ const HostInfo = ({ person }: { person: BrideAndGroom }) => {
 };
 
 const HighlightedName = styled.span`
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #222;
   margin-right: 5px;
-  -webkit-text-stroke: 0.8px currentColor;
 `;
 
 const HostContainer = styled.div`
   gap: 8px;
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
 `;
 
 const HostDetails = styled.div`
-  padding: 0 55px;
   justify-content: center;
   white-space: nowrap;
   display: flex;
   gap: 6px;
   text-align: center;
   align-items: center;
-  font-weight: 700;
-  /* 서초바탕에는 굵은 글씨체가 없어 font-weight가 먹지 않으므로 글자 테두리로 굵게 보이게 합니다. */
-  -webkit-text-stroke: 0.6px currentColor;
+  font-size: 0.9rem;
 `;
 
 const RelationText = styled.div`

@@ -17,10 +17,13 @@ const AccountWrap = ({
   kakaopayAccount,
   tossAccount,
 }: IAccountProps) => {
+  // 화면에는 하이픈(-)이 있는 그대로 보여주고, 복사할 때만 하이픈을 뺍니다.
+  const copyText = account.replace(/-/g, '');
+
   const handleCopy = () => {
     if (!navigator.clipboard) {
       const textarea = document.createElement('textarea');
-      textarea.value = account;
+      textarea.value = copyText;
       textarea.style.position = 'fixed';
       textarea.style.opacity = '0';
       document.body.appendChild(textarea);
@@ -37,7 +40,7 @@ const AccountWrap = ({
       return;
     }
 
-    navigator.clipboard.writeText(account).then(
+    navigator.clipboard.writeText(copyText).then(
       () => {
         alert('계좌번호가 복사되었습니다.😉😉');
       },
@@ -80,7 +83,7 @@ const AccountWrap = ({
 };
 
 const Wrapper = styled.div`
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
   padding: 14px 0;
   border-bottom: 1px solid #eee;
   &:last-of-type {

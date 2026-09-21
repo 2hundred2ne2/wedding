@@ -8,6 +8,9 @@ import images from '@/layout/Gallery/Images.ts';
 // 스와이프 중 손을 뗐을 때 살짝 움직인 것까지 클릭(확대)으로 오인하지 않도록 하는 허용 오차입니다.
 const DRAG_THRESHOLD = 8;
 const GAP = 16;
+// 트랙 좌우 여백입니다. 사진은 여백을 뺀 폭 전체(100%)를 차지하므로, 이 값을 줄이면 가운데 사진이 커지고
+// 늘리면 작아집니다. (22% → 사진 폭은 갤러리 폭의 56%)
+const SIDE_PADDING = '22%';
 // 스크롤이 멈춘 뒤 이 시간(ms)이 지나면 "정착했다"고 보고 복제본 위 여부를 확인합니다.
 const SETTLE_DELAY = 120;
 
@@ -57,7 +60,8 @@ const PhotoGallery = () => {
       slides.forEach((slide) => {
         const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
         const distance = Math.abs(trackCenter - slideCenter);
-        const ratio = Math.max(0, 1 - distance / (track.clientWidth * 0.6));
+        // 사진이 커진 만큼 옆 사진이 너무 작고 흐려지지 않도록 감쇠 범위를 넓힙니다.
+        const ratio = Math.max(0, 1 - distance / (track.clientWidth * 0.9));
         const scale = 0.72 + ratio * 0.28;
         slide.style.transform = `scale(${scale})`;
         slide.style.opacity = `${0.55 + ratio * 0.45}`;
@@ -167,7 +171,7 @@ const Track = styled.div`
   display: flex;
   align-items: center;
   gap: ${GAP}px;
-  padding: 0 20%;
+  padding: 0 ${SIDE_PADDING};
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -178,7 +182,7 @@ const Track = styled.div`
 `;
 
 const Slide = styled.div`
-  flex: 0 0 60%;
+  flex: 0 0 100%;
   aspect-ratio: 2 / 3;
   scroll-snap-align: center;
   overflow: hidden;

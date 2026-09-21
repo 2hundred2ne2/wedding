@@ -62,11 +62,14 @@ const Calendar = () => {
       <Cell key={i} isSunday={i % 7 === 0} isSaturday={i % 7 === 6}>
         {isCurrent ? (
           isHighlight ? (
-            <HeartAnimate>
-              <svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ef7baf">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-            </HeartAnimate>
+            <HeartBox>
+              <HeartAnimate>
+                <svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ef7baf">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+              </HeartAnimate>
+              <HeartDay>{dayNum}</HeartDay>
+            </HeartBox>
           ) : (
             <>{dayNum}</>
           )
@@ -112,7 +115,7 @@ const CalendarWrapper = styled.div`
 `;
 
 const MonthTitle = styled.p`
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
   font-size: 1.2rem;
   color: #1A243D;
   margin: 0;
@@ -146,6 +149,30 @@ const Cell = styled.div<{ isSunday?: boolean; isSaturday?: boolean }>`
   color: ${(props) => (props.isSunday ? '#1A243D' : props.isSaturday ? '#8ca6e8' : '#333')};
 `;
 
+// 하트는 깜빡이며 커지지만, 날짜 숫자는 흔들리지 않게 하트 위에 따로 겹쳐 둡니다.
+const HeartBox = styled.span`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+`;
+
+const HeartDay = styled.span`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 하트 모양은 무게 중심이 살짝 위에 있어서 숫자를 1px 올립니다. */
+  padding-bottom: 2px;
+  font-size: 0.85rem;
+  line-height: 1;
+  color: #1A243D;
+  -webkit-text-stroke: 0.4px currentColor;
+`;
+
 const HeartAnimate = styled.span`
   display: flex;
   align-items: center;
@@ -161,7 +188,9 @@ const Countdown = styled.p`
   text-align: center;
 `;
 
+// 남은 일수 강조입니다. 이 글꼴에는 굵은 글씨체가 없어 font-weight가 먹지 않으므로,
+// 글자 테두리로 굵게 보이게 합니다. 색은 하트와 어울리는 분홍 계열입니다.
 const Point = styled.span`
-  color: #1A243D;
-  font-weight: 600;
+  color: #D0356F;
+  -webkit-text-stroke: 0.5px currentColor;
 `;

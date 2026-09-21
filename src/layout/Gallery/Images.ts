@@ -10,6 +10,7 @@ import image09 from '@/assets/images/09.jpg';
 import image10 from '@/assets/images/10.jpg';
 import image11 from '@/assets/images/11.jpg';
 import image12 from '@/assets/images/12.jpg';
+import mainImages from '@/layout/Main/Images.ts';
 
 const images = [
   { alt: 'image01', source: image01, width: 1280, height: 1920 },
@@ -24,6 +25,8 @@ const images = [
   { alt: 'image10', source: image10, width: 1280, height: 1920 },
   { alt: 'image11', source: image11, width: 1280, height: 1920 },
   { alt: 'image12', source: image12, width: 1280, height: 1920 },
+  // 메인 화면 슬라이드에 쓰는 사진(assets/images/main)도 갤러리 뒤에 이어서 보여줍니다.
+  ...mainImages,
 ];
 
 export default images;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { ref, remove, update } from 'firebase/database';
+import { ref, remove } from 'firebase/database';
 import { getCommentFont } from './commentFont.ts';
 import { hashPassword } from './hashPassword.ts';
 import { MASTER_PASSWORD_HASH } from './masterPassword.ts';
@@ -14,19 +14,15 @@ interface IProps {
   passwordHash: string;
 }
 
-type Mode = 'view' | 'delete' | 'edit';
-
 const CommentItem = ({ id, sender, message, date, passwordHash }: IProps) => {
-  const [mode, setMode] = useState<Mode>('view');
+  const [isDeleting, setIsDeleting] = useState(false);
   const [pin, setPin] = useState('');
-  const [editText, setEditText] = useState(message);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const reset = () => {
-    setMode('view');
+    setIsDeleting(false);
     setPin('');
-    setEditText(message);
     setError('');
   };
 
@@ -59,60 +55,26 @@ const CommentItem = ({ id, sender, message, date, passwordHash }: IProps) => {
     }
   };
 
-  const handleEditSave = async () => {
-    if (!realtimeDb || isSubmitting) return;
-    if (!editText.trim()) {
-      setError('메시지를 입력해주세요.');
-      return;
-    }
-    setIsSubmitting(true);
-    const ok = await verifyPin();
-    if (!ok) {
-      setIsSubmitting(false);
-      return;
-    }
-    try {
-      await update(ref(realtimeDb, `guestbook/${id}`), { message: editText.trim() });
-      reset();
-    } catch {
-      setError('수정에 실패했어요. 잠시 후 다시 시도해주세요.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const fontStyle = { fontFamily: getCommentFont(id) };
 
   return (
     <Wrapper>
+      <CloseButton
+        type="button"
+        aria-label="메시지 삭제"
+        onClick={() => (isDeleting ? reset() : setIsDeleting(true))}
+      >
+        ✕
+      </CloseButton>
+
       <Header>
         <Sender style={fontStyle}>{sender}</Sender>
         <DateText>{date}</DateText>
       </Header>
 
-      {mode === 'edit' ? (
-        <EditTextarea
-          style={fontStyle}
-          value={editText}
-          maxLength={300}
-          onChange={(e) => setEditText(e.target.value)}
-        />
-      ) : (
-        <Message style={fontStyle}>{message}</Message>
-      )}
+      <Message style={fontStyle}>{message}</Message>
 
-      {mode === 'view' && (
-        <ActionRow>
-          <ActionButton type="button" onClick={() => setMode('edit')}>
-            수정
-          </ActionButton>
-          <ActionButton type="button" onClick={() => setMode('delete')}>
-            삭제
-          </ActionButton>
-        </ActionRow>
-      )}
-
-      {(mode === 'edit' || mode === 'delete') && (
+      {isDeleting && (
         <PinRow>
           <PinInput
             placeholder="비밀번호"
@@ -122,15 +84,9 @@ const CommentItem = ({ id, sender, message, date, passwordHash }: IProps) => {
             value={pin}
             onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))}
           />
-          {mode === 'edit' ? (
-            <ActionButton type="button" disabled={isSubmitting} onClick={() => void handleEditSave()}>
-              저장
-            </ActionButton>
-          ) : (
-            <ActionButton type="button" disabled={isSubmitting} onClick={() => void handleDelete()}>
-              확인
-            </ActionButton>
-          )}
+          <ActionButton type="button" disabled={isSubmitting} onClick={() => void handleDelete()}>
+            삭제
+          </ActionButton>
           <ActionButton type="button" onClick={reset}>
             취소
           </ActionButton>
@@ -143,10 +99,34 @@ const CommentItem = ({ id, sender, message, date, passwordHash }: IProps) => {
 };
 
 const Wrapper = styled.li`
+  position: relative;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 10px 12px;
   background-color: #fafafa;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: #aaa;
+  font-size: 0.95rem;
+  line-height: 1;
+  font-family: inherit;
+  cursor: pointer;
+
+  &:hover {
+    color: #555;
+  }
 `;
 
 const Header = styled.div`
@@ -154,6 +134,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 4px;
+  padding-right: 26px;
   gap: 8px;
 `;
 
@@ -176,41 +157,21 @@ const Message = styled.p`
   word-break: break-word;
 `;
 
-const EditTextarea = styled.textarea`
-  width: 100%;
-  box-sizing: border-box;
-  min-height: 60px;
-  border-radius: 4px;
-  padding: 4px;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  outline: none;
-  border: 1px solid #ccc;
-  resize: vertical;
-  font-family: inherit;
-  font-weight: 300;
-`;
-
-const ActionRow = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 6px;
-  margin-top: 6px;
-`;
-
 const PinRow = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: 8px;
 `;
 
+// iOS는 입력창 글자가 16px보다 작으면 포커스할 때 화면을 확대하므로 1rem으로 둡니다.
 const PinInput = styled.input`
   flex: 1;
+  min-width: 0;
   box-sizing: border-box;
   border-radius: 4px;
-  padding: 4px;
-  font-size: 0.85rem;
+  padding: 4px 6px;
+  font-size: 1rem;
   outline: none;
   border: 1px solid #ccc;
   font-family: inherit;

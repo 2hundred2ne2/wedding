@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
 export const Heading1 = styled.p`
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
   font-size: 1.5rem;
   margin: 10px;
   color: #031F6D;
   white-space: pre-line;
-  /* 서초바탕에는 굵은 글씨체가 없어 font-weight가 먹지 않으므로 글자 테두리로 굵게 보이게 합니다. */
+  /* 이 글꼴에는 굵은 글씨체가 없어 font-weight가 먹지 않으므로 글자 테두리로 굵게 보이게 합니다. */
   -webkit-text-stroke: 0.7px currentColor;
 `;
 
@@ -17,7 +17,7 @@ export const Heading2 = styled.p`
 `;
 
 export const PointTitle = styled.p`
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
   line-height: 1;
   margin: 0;
   color: #1A243D;

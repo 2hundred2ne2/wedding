@@ -11,17 +11,17 @@ import image10 from '@/assets/images/main/10.jpg';
 import image11 from '@/assets/images/main/11.jpg';
 
 const mainImages = [
-  { alt: 'main01', source: image01 },
-  { alt: 'main02', source: image02 },
-  { alt: 'main03', source: image03 },
-  { alt: 'main04', source: image04 },
-  { alt: 'main05', source: image05 },
-  { alt: 'main06', source: image06 },
-  { alt: 'main07', source: image07 },
-  { alt: 'main08', source: image08 },
-  { alt: 'main09', source: image09 },
-  { alt: 'main10', source: image10 },
-  { alt: 'main11', source: image11 },
+  { alt: 'main01', source: image01, width: 1066, height: 1600 },
+  { alt: 'main02', source: image02, width: 1066, height: 1600 },
+  { alt: 'main03', source: image03, width: 1066, height: 1600 },
+  { alt: 'main04', source: image04, width: 1066, height: 1600 },
+  { alt: 'main05', source: image05, width: 1066, height: 1600 },
+  { alt: 'main06', source: image06, width: 1066, height: 1600 },
+  { alt: 'main07', source: image07, width: 1066, height: 1600 },
+  { alt: 'main08', source: image08, width: 1066, height: 1600 },
+  { alt: 'main09', source: image09, width: 1600, height: 1066 },
+  { alt: 'main10', source: image10, width: 1066, height: 1600 },
+  { alt: 'main11', source: image11, width: 1066, height: 1600 },
 ];
 
 export default mainImages;

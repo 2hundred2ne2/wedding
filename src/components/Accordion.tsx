@@ -34,7 +34,7 @@ const Accordion = ({ title, children }: IAccordionProps) => {
 export default Accordion;
 
 const AccordionWrapper = styled.div`
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
   font-size: 1rem;
   margin-bottom: 16px;
   border: 1px solid #eee;
@@ -57,8 +57,8 @@ const AccordionHeader = styled.div<{ isActive: boolean }>`
     margin: 0;
     flex: 1;
     text-align: center;
-    font-family: 'SeochoBatang-Regular', serif;
-    /* 서초바탕에는 굵은 글씨체가 없어 font-weight가 먹지 않으므로 글자 테두리로 굵게 보이게 합니다. */
+    font-family: 'KotraGothic', sans-serif;
+    /* 이 글꼴에는 굵은 글씨체가 없어 font-weight가 먹지 않으므로 글자 테두리로 굵게 보이게 합니다. */
     -webkit-text-stroke: 0.6px currentColor;
   }
   & > span {

@@ -1,5 +1,19 @@
+/* 어떤 요소가 넘치더라도 페이지가 가로로 밀리지 않도록 폭을 화면에 고정합니다.
+   (clip은 스크롤 영역을 만들지 않아 sticky/fixed에 영향이 없고, 미지원 브라우저는 hidden으로 동작) */
+html,
 body {
-  font-family: 'SeochoBatang-Regular', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  font-family: 'KotraGothic', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -27,10 +41,11 @@ body {
 }
 
 @font-face {
-  font-family: 'SeochoBatang-Regular';
-  src: url('./assets/font/SeochoBatang-Regular.woff2') format('woff2');
+  font-family: 'KotraGothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {

@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import data from 'data.json';
 import messageImg from '@/assets/images/message.jpg';
 import partyImg from '@/assets/images/party.jpg';
 import ErrorBoundary from '@/components/ErrorBoundary.tsx';
 import HauntedText from '@/components/HauntedText.tsx';
 import { Heading1 } from '@/components/Text.tsx';
+import TypewriterText from '@/components/TypewriterText.tsx';
 import Wrapper from '@/components/Wrapper.tsx';
 import Account from '@/layout/Account/Account.tsx';
 import Calendar from '@/layout/Calendar/Calendar.tsx';
@@ -81,11 +83,14 @@ function App() {
         </Wrapper>
       </InvitationSection>
       <Wrapper ref={galleryRef}>
-        <Heading1>Gallery</Heading1>
+        <Heading1>갤러리</Heading1>
         <GalleryWrap />
       </Wrapper>
       <Wrapper>
         <Heading1>마음 전하실 곳</Heading1>
+        <AccountMessageBox>
+          <TypewriterText text={data.accountMessage} />
+        </AccountMessageBox>
         <Account />
       </Wrapper>
       <CalendarSection>
@@ -163,7 +168,7 @@ const InvitationSection = styled.div`
 `;
 
 const InvitationHeading = styled(HauntedText)`
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
   font-size: 1.5rem;
   margin: 10px;
   white-space: pre-line;
@@ -171,11 +176,16 @@ const InvitationHeading = styled(HauntedText)`
 `;
 
 const ReceptionHeading = styled(HauntedText)`
-  font-family: 'SeochoBatang-Regular', serif;
+  font-family: 'KotraGothic', sans-serif;
   font-size: 1.5rem;
   margin: 10px;
   white-space: pre-line;
   -webkit-text-stroke: 0.7px currentColor;
+`;
+
+const AccountMessageBox = styled.div`
+  width: 100%;
+  margin: 8px 0 12px;
 `;
 
 const CalendarSection = styled.div`
