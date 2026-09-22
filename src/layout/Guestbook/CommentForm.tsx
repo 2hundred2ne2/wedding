@@ -5,8 +5,8 @@ import { hashPassword } from './hashPassword.ts';
 import { realtimeDb } from '../../firebase.ts';
 
 interface IProps {
-  // 등록에 성공하면 호출됩니다. 메시지에 "축하"가 들어 있는지를 함께 넘깁니다.
-  onSubmitted: (hasCelebration: boolean) => void;
+  // 등록에 성공하면 호출됩니다.
+  onSubmitted: () => void;
 }
 
 const CommentForm = ({ onSubmitted }: IProps) => {
@@ -45,13 +45,10 @@ const CommentForm = ({ onSubmitted }: IProps) => {
       date: new Date().toLocaleString(),
     };
 
-    // 메시지에 "축하"가 들어있으면 등록 성공 후 폭죽 애니메이션을 띄웁니다.
-    const hasCelebration = message.includes('축하');
-
     push(ref(realtimeDb, 'guestbook'), guestbookMessage)
       .then(() => {
         alert('메시지를 보냈습니다. 💌');
-        onSubmitted(hasCelebration);
+        onSubmitted();
       })
       .catch(() => {
         alert('메시지 전송에 실패했어요. 잠시 후 다시 시도해주세요. 🥹');
