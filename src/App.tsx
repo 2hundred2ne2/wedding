@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import data from 'data.json';
 import messageImg from '@/assets/images/message.jpg';
-import partyImg from '@/assets/images/party.jpg';
 import ErrorBoundary from '@/components/ErrorBoundary.tsx';
 import HauntedText from '@/components/HauntedText.tsx';
+import ShuttleNotice from '@/components/ShuttleNotice.tsx';
 import { Heading1 } from '@/components/Text.tsx';
 import TypewriterText from '@/components/TypewriterText.tsx';
 import Wrapper from '@/components/Wrapper.tsx';
@@ -17,10 +17,10 @@ import Guestbook from '@/layout/Guestbook/Guestbook.tsx';
 import Invitation from '@/layout/Invitation/Invitation.tsx';
 import Location from '@/layout/Location/Location.tsx';
 import Main from '@/layout/Main/Main.tsx';
-import Reception from '@/layout/Reception/Reception.tsx';
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
+  const [showShuttleNotice, setShowShuttleNotice] = useState(true);
   const galleryRef = useRef(null);
   const invitationRef = useRef<HTMLDivElement>(null);
 
@@ -75,6 +75,7 @@ function App() {
 
   return (
     <Container>
+      {showShuttleNotice && <ShuttleNotice onClose={() => setShowShuttleNotice(false)} />}
       <Main />
       <InvitationSection ref={invitationRef}>
         <Wrapper>
@@ -103,12 +104,6 @@ function App() {
         <Heading1>오시는 길</Heading1>
         <Location />
       </Wrapper>
-      <ReceptionSection>
-        <Wrapper>
-          <ReceptionHeading text="태백 피로연 안내" />
-          <Reception />
-        </Wrapper>
-      </ReceptionSection>
       <GuestbookSection>
         <Wrapper>
           <Heading1>신랑 신부에게</Heading1>
@@ -175,14 +170,6 @@ const InvitationHeading = styled(HauntedText)`
   -webkit-text-stroke: 0.7px currentColor;
 `;
 
-const ReceptionHeading = styled(HauntedText)`
-  font-family: 'KotraGothic', sans-serif;
-  font-size: 1.5rem;
-  margin: 10px;
-  white-space: pre-line;
-  -webkit-text-stroke: 0.7px currentColor;
-`;
-
 const AccountMessageBox = styled.div`
   width: 100%;
   margin: 8px 0 12px;
@@ -190,36 +177,6 @@ const AccountMessageBox = styled.div`
 
 const CalendarSection = styled.div`
   background-color: #fff;
-`;
-
-const ReceptionSection = styled.div`
-  position: relative;
-  min-height: max(100dvh, 800px);
-  display: flex;
-  align-items: flex-start;
-  box-sizing: border-box;
-  background-color: #0b0b0d;
-  background-image: url(${partyImg});
-  background-size: cover;
-  background-position: center bottom;
-  color: #fff;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: rgba(255, 255, 255, 0.25);
-    z-index: 0;
-  }
-
-  & > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  && * {
-    color: #fff;
-  }
 `;
 
 const GuestbookSection = styled.div`
