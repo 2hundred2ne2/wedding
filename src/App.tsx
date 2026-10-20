@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import data from 'data.json';
-import messageImg from '@/assets/images/message.jpg';
 import ErrorBoundary from '@/components/ErrorBoundary.tsx';
 import HauntedText from '@/components/HauntedText.tsx';
 import ShuttleNotice from '@/components/ShuttleNotice.tsx';
@@ -14,6 +13,7 @@ import Container from '@/layout/Container.tsx';
 import FloatingBar from '@/layout/FloatingBar/FloatingBar.tsx';
 import GalleryWrap from '@/layout/Gallery/GalleryWrap.tsx';
 import Guestbook from '@/layout/Guestbook/Guestbook.tsx';
+import GuestbookVideo from '@/layout/Guestbook/GuestbookVideo.tsx';
 import Invitation from '@/layout/Invitation/Invitation.tsx';
 import Location from '@/layout/Location/Location.tsx';
 import Main from '@/layout/Main/Main.tsx';
@@ -107,7 +107,7 @@ function App() {
       <GuestbookSection>
         <Wrapper>
           <Heading1>신랑 신부에게</Heading1>
-          <MessageImg src={messageImg} alt="" />
+          <GuestbookVideo />
           <ErrorBoundary fallback={<GuestbookFallback>방명록을 잠시 불러올 수 없어요.</GuestbookFallback>}>
             <Guestbook />
           </ErrorBoundary>
@@ -181,12 +181,6 @@ const CalendarSection = styled.div`
 
 const GuestbookSection = styled.div`
   background-color: #f5f0e5;
-`;
-
-const MessageImg = styled.img`
-  width: 100%;
-  max-width: 320px;
-  margin-bottom: 12px;
 `;
 
 const GuestbookFallback = styled.p`
